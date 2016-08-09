@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="qna">
+	<typeAlias alias="qna" type="qna.model.qnaDTO"/>
+	<resultMap id="qnaList" class="qna">
+		<result property="qnaNum" column="qnaNum"/>
+		<result property="pRecNum" column="pRecNum"/>
+		<result property="qnaTitle" column="qnaTitle"/>
+		<result property="qnaName" column="qnaName"/>
+		<result property="qnaContents" column="qnaContents"/>
+		<result property="qnaDate" column="qnaDate"/>
+	</resultMap>
+	
+	<sql id="qna-select-all">
+		select * from qnaTable
+	</sql>
+	
+	<sql id="qna-where-no">
+		where pRecNum = #pRecNum#
+	</sql>
+	
+	<select id="qnaList" resultMap="qnaList" parameterClass="int">
+		<include refid="qna-select-all"/>
+		<include refid="qna-where-no"/>
+	</select>
+	
+	<insert id="insertQna" parameterClass="qna">
+		insert into qnaTable(
+		qnaNum,
+		pRecNum,
+		qnaTitle,
+		qnaName,
+		qnaContents,
+		qnaDate
+		) values (
+		qnaTable_qnaNum_seq.nextval,
+		#pRecNum#,
+		#qnaTitle#,
+		#qnaName#,
+		#qnaContents#,
+		sysdate
+		)
+	</insert>
+</sqlMap>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="cart">
+	<typeAlias alias="cart" type="cart.model.cartDTO"/>
+	<resultMap id="cartList" class="cart">
+		<result property="cPnum" column="cPnum"/>
+		<result property="cAmount" column="cAmount"/>
+		<result property="cOrderer" column="cOrderer"/>
+		<result property="cPname" column="cPname"/>
+		<result property="cPprice" column="cPprice"/>
+	</resultMap>
+<!-- 	
+	<sql id="select-pName">
+		select pName from productTable where pNum = (select cPnum from cartTable where cOrderer = #cOrderer# )
+	</sql>
+	<sql id="select-pPrice">
+		select pPrice from productTable where pNum = (select cPnum from cartTable where cOrderer = #cOrderer# )
+	</sql>
+	 -->
+	<insert id="insertCart" parameterClass="cart">
+		insert into cartTable(
+			cNo,
+			cPnum,
+			cAmount,
+			cOrderer,
+			cPname,
+			cPprice
+		) values(
+			cartTable_cNo_seq.nextval,
+			#cPnum#,
+			#cAmount#,
+			#cOrderer#,
+			#cPname#,
+			#cPprice#
+		)
+	</insert>
+	
+	
+	<select id="cartSelectbyID" resultMap="cartList" parameterClass="String">
+		select * from cartTable where cOrderer = #cOrderer#		
+	</select> 
+	
+</sqlMap>

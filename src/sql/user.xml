@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="user">
+	<typeAlias alias="user" type="user.model.userDTO"/>
+	<resultMap id="userList" class="user">
+		<result property="id" column="id"/>
+		<result property="password" column="password"/>
+		<result property="pwdQuestion" column="pwdQuestion"/>
+		<result property="pwdAnswer" column="pwdAnswer"/>
+		<result property="name" column="name"/>
+		<result property="address" column="address"/>
+		<result property="postcode" column="postcode"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+	</resultMap>
+	
+	<insert id="insertUser" parameterClass="user">
+		insert into joinTable(id,password,pwdQuestion,pwdAnswer,name,address,postcode,phone,email) 
+		values(#id#,#password#,#pwdQuestion#,#pwdAnswer#,#name#,#address#,#postcode#,#phone#,#email#)
+	</insert>
+	
+	<select id="selectUserById" resultClass="user">
+		select * from joinTable where id = #id#
+	</select>
+</sqlMap>

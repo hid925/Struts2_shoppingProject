@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+		<package name="adminPart" extends="struts-default">
+		
+			<action name="adminList" class="admin.action.adminListAction">
+				<result name="success">/jsp/index.jsp?page=adminList</result>
+			</action>
+
+			<action name="adminWrite" class="admin.action.adminWriteAction" method="form">
+				<result name="success">/jsp/index.jsp?page=adminInsert</result>
+			</action>		
+			
+			<action name="adminInsert" class="admin.action.adminWriteAction">
+				<result type="chain">
+					<param name="actionName">adminList</param>
+				</result>
+			</action>
+			
+			<action name="adminDetail" class="admin.action.adminDetailAction">
+				<result name="success">/jsp/index.jsp?page=adminDetail</result>
+			</action>
+			
+			<action name="adminEdit" class="admin.action.adminEditAction">
+				<result name="success">/jsp/admin/adminEdit.jsp</result>
+			</action>
+			
+			<action name="adminEditDone" class="admin.action.adminEditAction" method="adminEdit">
+				<result type="chain">
+					<param name="actionName">adminList</param>
+				</result>
+			</action>
+			
+			<action name="adminDelete" class="admin.action.adminEditAction" method="adminDelete">
+				<result type="chain">
+					<param name="actionName">adminList</param>
+				</result>
+			</action>
+			
+							
+		</package>
+	
+	
+</struts>

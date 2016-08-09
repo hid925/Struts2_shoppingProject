@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="product">
+	<typeAlias alias="product" type="admin.model.adminDTO"/>
+	<resultMap id="productList" class="product">
+		<result property="pNum" column="pNum"/>
+		<result property="pName" column="pName"/>
+		<result property="pPrice" column="pPrice"/>
+		<result property="pColor" column="pColor"/>
+		<result property="pSize" column="pSize"/>
+		<result property="pInnerContent" column="pInnerContent"/>
+		<result property="pOuterContent" column="pOuterContent"/>
+		<result property="pAmount" column="pAmount"/>
+		<result property="pCategory" column="pCategory"/>
+		<result property="pFileName1" column="pFileName1"/>
+		<result property="pOrgFile1" column="pOrgFile1"/>
+		<result property="pFileName2" column="pFileName2"/>
+		<result property="pOrgFile2" column="pOrgFile2"/>
+		<result property="pFileName3" column="pFileName3"/>
+		<result property="pOrgFile3" column="pOrgFile3"/>
+		<result property="pWdate" column="pWdate"/>
+		<result property="pReadHit" column="pReadHit"/>		
+		<result property="pAuthor" column="pAuthor"/>
+	</resultMap>
+		
+	<sql id="product-select-all">
+		select * from productTable
+	</sql>
+	<sql id="product-where-no">
+		where pNum = #pNum#
+	</sql>
+	
+	<select id="adminSelectOuter" resultMap="productList">
+		<include refid="product-select-all"/>	
+		 where pCategory = 'Outer'
+	</select>
+	
+	<select id="adminSelectTop" resultMap="productList">
+		<include refid="product-select-all"/>	
+		 where pCategory = 'Top'
+	</select>
+	
+	<select id="adminSelectBottom" resultMap="productList">
+		<include refid="product-select-all"/>	
+		 where pCategory = 'Bottom'
+	</select>
+	
+	<select id="adminSelectAcc" resultMap="productList">
+		<include refid="product-select-all"/>	
+		 where pCategory = 'Acc'
+	</select>
+
+
+</sqlMap>

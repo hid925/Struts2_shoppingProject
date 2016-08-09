@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="admin">
+	<typeAlias alias="admin" type="admin.model.adminDTO"/>
+	<resultMap id="adminList" class="admin">
+		<result property="pNum" column="pNum"/>
+		<result property="pName" column="pName"/>
+		<result property="pPrice" column="pPrice"/>
+		<result property="pColor" column="pColor"/>
+		<result property="pSize" column="pSize"/>
+		<result property="pInnerContent" column="pInnerContent"/>
+		<result property="pOuterContent" column="pOuterContent"/>
+		<result property="pAmount" column="pAmount"/>
+		<result property="pCategory" column="pCategory"/>
+		<result property="pFileName1" column="pFileName1"/>
+		<result property="pOrgFile1" column="pOrgFile1"/>
+		<result property="pFileName2" column="pFileName2"/>
+		<result property="pOrgFile2" column="pOrgFile2"/>
+		<result property="pFileName3" column="pFileName3"/>
+		<result property="pOrgFile3" column="pOrgFile3"/>
+		<result property="pWdate" column="pWdate"/>
+		<result property="pReadHit" column="pReadHit"/>		
+		<result property="pAuthor" column="pAuthor"/>
+	</resultMap>
+		
+	<sql id="admin-select-all">
+		select * from productTable
+	</sql>
+	<sql id="admin-where-no">
+		where pNum = #pNum#
+	</sql>
+	
+	<insert id="insertAdmin" parameterClass="admin">
+		insert into productTable(
+		pNum,
+		pName,
+		pPrice,
+		pColor,
+		pSize,
+		pInnerContent,
+		pOuterContent,
+		pAmount,
+		pCategory,
+		pWdate,
+		pReadHit,
+		pAuthor
+		) values (
+		productTable_pNum_seq.nextval,
+		#pName#,
+		#pPrice#,
+		#pColor#,
+		#pSize#,
+		#pInnerContent#,
+		#pOuterContent#,
+		#pAmount#,
+		#pCategory#,
+		sysdate,
+		#pReadHit#,
+		#pAuthor#
+		)
+	</insert>
+
+	<update id="adminUpdateReadHit" parameterClass="int">
+		update productTable set pReadHit = pReadHit + 1
+		<include refid="admin-where-no"/>
+	</update>
+	<update id="adminUpdateFile" parameterClass="admin">
+		update productTable set
+			pOrgFile1 = #pOrgFile1#,
+			pFileName1 = #pFileName1#,
+			pOrgFile2 = #pOrgFile2#,
+			pFileName2 = #pFileName2#,
+			pOrgFile3 = #pOrgFile3#,
+			pFileName3 = #pFileName3#
+			<include refid="admin-where-no"/>
+	</update>	
+	<update id="adminEdit" parameterClass="admin">
+		update productTable set 
+			pName = #pName#,
+			pPrice = #pPrice#,
+			pColor = #pColor#,
+			pSize = #pSize#,
+			pInnerContent = #pInnerContent#,
+			pOuterContent = #pOuterContent#,
+			pAmount = #pAmount#,
+			pCategory = #pCategory#
+		<include refid="admin-where-no"/>			
+	</update>
+		
+	<select id="adminSelectAll" resultMap="adminList">
+		<include refid="admin-select-all"/>	
+		 order by pNum desc
+	</select>
+	<select id="adminSelectOne" resultMap="adminList" parameterClass="int">
+		<include refid="admin-select-all"/>
+		<include refid="admin-where-no"/>
+	</select>
+	<select id="adminLastNo" resultClass="admin">
+		select max(pNum) as pNum from productTable
+	</select>
+	
+	<delete id="adminDelete" parameterClass="int">
+		delete from productTable
+		<include refid="admin-where-no"/>
+	</delete>
+<!-- 	
+	<select id="adminSelectOuter" resultMap="productList">
+		<include refid="product-select-all"/>	
+		 where pCategory = 'outer'
+	</select> -->
+	
+</sqlMap>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+		<package name="productPart" extends="struts-default">
+			
+			<action name="productOuterList" class="product.action.productListAction" method ="outer">
+				<result name="success">/jsp/index.jsp?page=productOuterList</result>
+			</action>
+			
+			<action name="productTopList" class="product.action.productListAction" method ="top">
+				<result name="success">/jsp/index.jsp?page=productTopList</result>
+			</action>
+			
+			<action name="productBottomList" class="product.action.productListAction" method ="bottom">
+				<result name="success">/jsp/index.jsp?page=productBottomList</result>
+			</action>
+			
+			<action name="productAccList" class="product.action.productListAction" method ="acc">
+				<result name="success">/jsp/index.jsp?page=productAccList</result>
+			</action>
+	
+			<action name="productView" class="product.action.productViewAction">
+				<result name="success">/jsp/index.jsp?page=productView</result>
+			</action>
+			
+			<action name="productCart" class="cart.action.cartAddAction">
+				<result name="success">/jsp/index.jsp?page=productView</result>
+			</action>
+					
+			<action name="cart" class="cart.action.cartViewAction">
+				<result name="success">/jsp/index.jsp?page=cartView</result>
+			</action>
+			
+		</package>
+	
+	
+</struts>

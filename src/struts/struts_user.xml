@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	
+	<package name="userPart" extends="struts-default">
+		<action name="joinForm" class="user.action.joinAction" method="form">
+			<result name="success">/jsp/user/joinForm.jsp</result>
+		</action>
+	
+		<action name="join" class="user.action.joinAction">
+				<result type="chain">
+					<param name="actionName">main</param>
+				</result>
+		</action>
+		
+		<action name="loginForm" class="user.action.loginAction" method="form">
+				<result name="success">/jsp/user/login.jsp</result>
+		</action>
+		
+		<action name="login" class="user.action.loginAction">
+				<result type="chain">
+					<param name="actionName">main</param>
+				</result>
+		</action>
+		
+		<action name="logout" class="user.action.loginAction" method="logout">
+				<result type="chain">
+					<param name="actionName">main</param>
+				</result>
+		</action>
+	
+	</package>
+	
+</struts>
